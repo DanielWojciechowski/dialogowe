@@ -1,2 +1,0 @@
-url = "dupadupa"
-springUrl = "cycki"
