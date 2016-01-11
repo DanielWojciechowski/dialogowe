@@ -32,8 +32,5 @@
         <return namelist="firstName lastName"/>
     </filled>
 
-<!--    <block>
-        <return namelist="firstName lastName"/>
-    </block>-->
 </form>
 </vxml>

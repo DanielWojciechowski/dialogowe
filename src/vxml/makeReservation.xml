@@ -43,7 +43,7 @@
             </prompt>
             <filled>
                 <if cond="newReservation">
-                    <clear namelist="beginningDate length roomType" />
+                    <clear namelist="beginningDate length roomType newReservation" />
                 </if>
             </filled>
         </field>
