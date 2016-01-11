@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="ReservationForm">
+        <field name="beginningDate" type="date">
+            <prompt>
+                Please tell the exact beginning date of the stay.
+            </prompt>
+        </field>
+        <field name="length" type="number">
+            <prompt>
+                Please tell the length of the stay in days.
+            </prompt>
+        </field>
+        <field name="roomType">
+            <prompt>
+                Please tell a room type.
+            </prompt>
+            <grammar src="http://85.222.124.174:1314/dictRoomType" type="application/grammar-xml" />
+        </field>
+        <subdialog name="checkReservationSubDialog" src="http://85.222.124.174:1314/checkReservation" namelist="beginningDate length roomType">
+        </subdialog>
+        <block>
+            <if cond="checkReservationSubDialog.roomId == ''">
+                <prompt>
+                    Sorry, we have got no room available in this date.
+                </prompt>
+                <goto nextitem="newReservation"/>
+            </if>
+        </block>
+        <subdialog name="nameAndSurnameSubDialog" src="nameAndSurnameMixedInit.xml">
+        </subdialog>
+        <field name="phoneNumber" type="phone">
+            <prompt>
+                Please tell your phone number.
+            </prompt>
+        </field>
+        <subdialog name="saveReservationSubDialog" src="http://85.222.124.174:1314/saveReservation" namelist="beginningDate length checkReservationSubDialog.roomId nameAndSurnameSubDialog.firstName nameAndSurnameSubDialog.lastName phoneNumber">
+        </subdialog>
+        <field name="newReservation" type="boolean">
+            <prompt>
+                Would you like to make another reservation
+            </prompt>
+            <filled>
+                <if cond="newReservation">
+                    <clear namelist="beginningDate length roomType" />
+                </if>
+            </filled>
+        </field>
+    </form>
+</vxml>
