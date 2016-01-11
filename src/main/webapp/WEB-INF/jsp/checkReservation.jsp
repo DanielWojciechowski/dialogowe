@@ -3,7 +3,7 @@
  
 <form id="checkReservationId">
 	<block>
-		<var name="roomId" expr="${roomId}"/>
+		<var name="roomId" expr="'${roomId}'"/>
 		<return namelist="roomId" />
 	</block>
 </form>

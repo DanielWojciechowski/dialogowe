@@ -20,8 +20,8 @@
         </field>
         <subdialog name="checkReservationSubDialog" src="http://85.222.124.174:1314/checkReservation" namelist="beginningDate length roomType">
         </subdialog>
-        <block>
-            <if cond="checkReservationSubDialog.roomId == ''">
+        <block name="checkReservationResultBlock">
+            <if cond="checkReservationSubDialog.roomId == '-'">
                 <prompt>
                     Sorry, we have got no room available in this date.
                 </prompt>
@@ -37,13 +37,24 @@
         </field>
         <subdialog name="saveReservationSubDialog" src="http://85.222.124.174:1314/saveReservation" namelist="beginningDate length checkReservationSubDialog.roomId nameAndSurnameSubDialog.firstName nameAndSurnameSubDialog.lastName phoneNumber">
         </subdialog>
+        <block name="saveReservationResultBlock">
+            <if cond="saveReservationSubDialog.reservationId == '-'">
+                <prompt>
+                    Sorry, you do not have an account in our system or made a some mistake.
+                </prompt>
+            <else />
+                <prompt>
+                    Thank you, your reservation number is <value expr="saveReservationSubDialog.reservationId"/>.
+                </prompt>
+            </if>
+        </block>
         <field name="newReservation" type="boolean">
             <prompt>
                 Would you like to make another reservation
             </prompt>
             <filled>
                 <if cond="newReservation">
-                    <clear namelist="beginningDate length roomType newReservation" />
+                    <clear namelist="beginningDate length roomType checkReservationSubDialog checkReservationResultBlock saveReservationResultBlock saveReservationSubDialog nameAndSurnameSubDialog phoneNumber newReservation" />
                 </if>
             </filled>
         </field>

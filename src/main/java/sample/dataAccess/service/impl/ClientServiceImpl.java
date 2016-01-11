@@ -18,26 +18,25 @@ public class ClientServiceImpl implements ClientService {
 
     @Inject
     public ClientServiceImpl(ClientRepository repository) {
-	this.repository = repository;
+        this.repository = repository;
     }
 
     @Override
     @Transactional
     public Client getByName(String name) {
-	List<Client> clients = repository.findByFirstNameIgnoreCase(name);
-	return clients.isEmpty() ? new Client() : clients.get(0);
+        List<Client> clients = repository.findByFirstNameIgnoreCase(name);
+        return clients.isEmpty() ? null : clients.get(0);
     }
 
     @Override
     public List<Client> listAll() {
-	return repository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public Client getByFullNameAndPhoneNumber(String firstName, String lastName, String phoneNumber) {
-	List<Client> clients = repository.findByFirstNameAndLastNameAndPhoneNumber(firstName, lastName, phoneNumber);
-	System.out.println(clients.isEmpty() ? "Nie znalazł clienta" : clients.get(0).getFirstName());
-	return clients.isEmpty() ? new Client() : clients.get(0);
+        List<Client> clients = repository.findByFirstNameAndLastNameAndPhoneNumber(firstName, lastName, phoneNumber);
+        System.out.println(clients.isEmpty() ? "Nie znalazł Klienta" : clients.get(0).getFirstName());
+        return clients.isEmpty() ? null : clients.get(0);
     }
-
 }

@@ -3,8 +3,8 @@
  
 <form id="saveReservation">
 	<block>
-		<var name="roomId" expr="${roomId}"/>
-		<return namelist="roomId" />
+		<var name="reservationId" expr="'${reservationId}'"/>
+		<return namelist="reservationId" />
 	</block>
 </form>
 

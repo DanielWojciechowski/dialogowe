@@ -24,6 +24,9 @@ local.properties
 # CDT-specific
 .cproject
 
+/log.txt
+/target
+/run.bat
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 

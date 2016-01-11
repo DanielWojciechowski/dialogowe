@@ -16,14 +16,8 @@
 
 package sample.jsp;
 
-import static sample.ModelConsts.MODEL_ROOM_ID;
-import static sample.ParamConsts.PARAM_BEGINNING_DATE;
-import static sample.ParamConsts.PARAM_LENGTH;
-import static sample.ParamConsts.PARAM_PHONE_NUMBER;
-import static sample.ParamConsts.PARAM_ROOM_TYPE;
-import static sample.ParamConsts.PARAM_SUBDIALOG_FIRSTNAME;
-import static sample.ParamConsts.PARAM_SUBDIALOG_LASTNAME;
-import static sample.ParamConsts.PARAM_SUBDIALOG_ROOM_ID;
+import static sample.ModelConsts.*;
+import static sample.ParamConsts.*;
 
 import java.util.Date;
 import java.util.Map;
@@ -50,83 +44,88 @@ public class ReservationController extends AbstractController {
     private final RoomService roomService;
     private final RoomsInReservationService roomsInReservationService;
 
+    public static final String EMPTY_ELEMENT = "-";
+
     @Inject
     public ReservationController(ClientService clientService, ReservationService reservationService,
-	    RoomService roomService, RoomsInReservationService roomsInReservationService) {
-	this.clientService = clientService;
-	this.reservationService = reservationService;
-	this.roomService = roomService;
-	this.roomsInReservationService = roomsInReservationService;
+                                 RoomService roomService, RoomsInReservationService roomsInReservationService) {
+        this.clientService = clientService;
+        this.reservationService = reservationService;
+        this.roomService = roomService;
+        this.roomsInReservationService = roomsInReservationService;
     }
 
     @RequestMapping("/reservationExists")
     public String reservationExists(Map<String, Object> model, HttpServletRequest request) {
-	final Long reservationId = Long.valueOf(request.getParameter("reservationId"));
-	Reservation reservation = reservationService.findById(reservationId);
-	model.put("reservationExists", reservation.getId() != null);
+        final Long reservationId = Long.valueOf(request.getParameter("reservationId"));
+        Reservation reservation = reservationService.findById(reservationId);
+        model.put("reservationExists", reservation.getId() != null);
 
-	return "reservationExists";
+        return "reservationExists";
     }
 
     @RequestMapping("/checkReservation")
     public String checkReservation(Map<String, Object> model, HttpServletRequest request) {
-	System.out.println("checkReservation " + request.getParameterMap());
-	final String roomType = request.getParameter(PARAM_ROOM_TYPE);
-	final Date startDate = getStartDate(request.getParameter(PARAM_BEGINNING_DATE));
-	final Date endDate = getEndDate(startDate, Integer.valueOf(request.getParameter(PARAM_LENGTH)));
+        System.out.println("checkReservation " + request.getParameterMap());
+        final String roomType = request.getParameter(PARAM_ROOM_TYPE);
+        final Date startDate = getStartDate(request.getParameter(PARAM_BEGINNING_DATE));
+        final Date endDate = getEndDate(startDate, Integer.valueOf(request.getParameter(PARAM_LENGTH)));
 
-	Room r = roomService.findAvailableByRoomType(roomType, startDate, endDate);
-	Long rId = r.getId();
-	model.put(MODEL_ROOM_ID, rId == null ? "" : rId);
-	System.out.println("RoomId: " + rId);
+        Room r = roomService.findAvailableByRoomType(roomType, startDate, endDate);
+        Long rId = r.getId();
+        model.put(MODEL_ROOM_ID, rId == null ? EMPTY_ELEMENT : rId);
+        System.out.println("RoomId: " + rId);
 
-	return "checkReservation";
+        return "checkReservation";
     }
 
     @RequestMapping("/saveReservation")
     public String saveReservation(Map<String, Object> model, HttpServletRequest request) {
-	printRequest("saveReservation", request);
-	System.out.println("saveReservation " + request.getParameterMap());
+        printRequest("saveReservation", request);
 
-	Reservation reservation = createReservation(model, request);
-	reservation = reservationService.save(reservation);
-	model.put(MODEL_ROOM_ID, reservation.getId());
+        Reservation reservation = createReservation(request);
+        if (reservation == null) {
+            model.put(MODEL_RESERVATION_ID, EMPTY_ELEMENT);
+        } else {
+            reservation = reservationService.save(reservation);
+            model.put(MODEL_RESERVATION_ID, reservation.getId());
 
-	RoomsInReservation roomsInReservation = createRoomsInReservation(request, reservation);
-	roomsInReservation = roomsInReservationService.save(roomsInReservation);
-
-	return "saveReservation";
+            RoomsInReservation roomsInReservation = createRoomsInReservation(request, reservation);
+            roomsInReservationService.save(roomsInReservation);
+        }
+        return "saveReservation";
     }
 
-    private Reservation createReservation(Map<String, Object> model, HttpServletRequest request) {
-	printRequest("createReservation", request);
-	Reservation reservation = new Reservation();
-	final Date startDate = getStartDate(request.getParameter(PARAM_BEGINNING_DATE));
-	reservation.setStartDate(startDate);
+    private Reservation createReservation(HttpServletRequest request) {
+        Client client = getClient(request);
+        if (client == null) return null;
 
-	final Date endDate = getEndDate(startDate, Integer.valueOf(request.getParameter(PARAM_LENGTH)));
-	reservation.setEndDate(endDate);
+        Reservation reservation = new Reservation();
+        final Date startDate = getStartDate(request.getParameter(PARAM_BEGINNING_DATE));
+        reservation.setStartDate(startDate);
 
-	Client c = getClient(request);
-	reservation.setOwner(c);
+        final Date endDate = getEndDate(startDate, Integer.valueOf(request.getParameter(PARAM_LENGTH)));
+        reservation.setEndDate(endDate);
 
-	return reservation;
+        reservation.setOwner(client);
+
+        return reservation;
     }
 
     private Client getClient(HttpServletRequest request) {
-	final String firstName = request.getParameter(PARAM_SUBDIALOG_FIRSTNAME);
-	final String lastName = request.getParameter(PARAM_SUBDIALOG_LASTNAME);
-	final String phoneNumber = request.getParameter(PARAM_PHONE_NUMBER);
+        final String firstName = request.getParameter(PARAM_SUBDIALOG_FIRSTNAME);
+        final String lastName = request.getParameter(PARAM_SUBDIALOG_LASTNAME);
+        final String phoneNumber = request.getParameter(PARAM_PHONE_NUMBER);
 
-	return clientService.getByFullNameAndPhoneNumber(firstName, lastName, phoneNumber);
+        return clientService.getByFullNameAndPhoneNumber(firstName, lastName, phoneNumber);
     }
 
     private RoomsInReservation createRoomsInReservation(HttpServletRequest request, Reservation reservation) {
-	RoomsInReservation roomsInReservation = new RoomsInReservation();
-	roomsInReservation.setReservation(reservation);
-	Room room = roomService.findById(Long.valueOf(request.getParameter(PARAM_SUBDIALOG_ROOM_ID)));
-	roomsInReservation.setRoom(room);
+        RoomsInReservation roomsInReservation = new RoomsInReservation();
+        roomsInReservation.setReservation(reservation);
+        Room room = roomService.findById(Long.valueOf(request.getParameter(PARAM_SUBDIALOG_ROOM_ID)));
+        roomsInReservation.setRoom(room);
 
-	return roomsInReservation;
+        return roomsInReservation;
     }
 }
