@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+
+<form id="NameAndSurnameMixedInit">
+
+    <grammar src="http://85.222.124.174:1314/mixedNames" type="application/grammar-xml"/>
+
+    <initial name="myInit">
+        <prompt>
+            Provide your name and surname.
+        </prompt>
+
+        <nomatch count="1">
+            Okay, I'll ask you for information one piece at a time.
+            <assign name="myInit" expr="true"/>
+            <reprompt/>
+        </nomatch>
+    </initial>
+
+    <field name="firstName">
+        <prompt>Provide your name?</prompt>
+        <grammar src="http://85.222.124.174:1314/firstNames" type="application/grammar-xml"/>
+    </field>
+
+    <field name="lastName">
+        <prompt>Provide your surname</prompt>
+        <grammar src="http://85.222.124.174:1314/lastNames" type="application/grammar-xml"/>
+    </field>
+
+    <filled mode="all">
+        <return namelist="firstName lastName"/>
+    </filled>
+
+<!--    <block>
+        <return namelist="firstName lastName"/>
+    </block>-->
+</form>
+</vxml>
