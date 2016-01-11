@@ -23,7 +23,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 	    + "		left join rir.room ro                             "
 	    + "	where rt.roomType = :roomType                            "
 	    + "	    and :startDate between res.startDate and res.endDate "
-	    + "	    and  :endDate between res.startDate and res.endDate  "
+	    + "	    or  :endDate between res.startDate and res.endDate  "
 	    + ")                                                         "
 	    + "and rt.roomType = :roomType                               ";
 
