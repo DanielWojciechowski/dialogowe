@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="WelcomeForm">
+        <block>
+            <prompt>
+                Welcome to the telephone hotel system.
+            </prompt>
+            <goto next="#MainMenuForm"/>
+        </block>
+    </form>
+
+    <form id="MainMenuForm">
+        <field name="menuSelect">
+            <prompt>
+                What would you like to do?
+            </prompt>
+            <grammar src="mainMenuGrammar.xml" type="application/grammar-xml" />
+            <filled>
+                <if cond="menuSelect=='make reservation'">
+                    <goto next="makeReservation.xml"/>
+                <elseif cond="menuSelect=='modify reservation'"/>
+                    <!--<goto next="modifyReservation.xml"/>-->
+                    <prompt>
+                        You have selected Modification Service.
+                    </prompt>
+                <elseif cond="menuSelect=='get information'"/>
+                    <!--<goto next="getInformation.xml"/>-->
+                    <prompt>
+                        You have selected Information Service.
+                    </prompt>
+                <else />
+                    <prompt>
+                        Thank you for using our telephone hotel system. Goodbye.
+                    </prompt>
+                </if>
+            </filled>
+        </field>
+
+    </form>
+</vxml>

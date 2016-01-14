@@ -58,5 +58,8 @@
                 </if>
             </filled>
         </field>
+        <block>
+            <goto next="mainMenu.xml#MainMenuForm"/>
+        </block>
     </form>
 </vxml>
