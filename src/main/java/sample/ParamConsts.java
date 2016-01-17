@@ -12,5 +12,6 @@ public final class ParamConsts {
     public static final String PARAM_SUBDIALOG_FIRSTNAME = "nameAndSurnameSubDialog.firstName";
     public static final String PARAM_SUBDIALOG_ROOM_ID = "checkReservationSubDialog.roomId";
     public static final String PARAM_RESERVATION_ID = "reservationId";
+    public static final String PARAM_SERVICE_NAME = "serviceType";
 
 }

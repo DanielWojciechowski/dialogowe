@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="ServicePriceForm">
+
+        <field name="serviceType">
+            <prompt>
+                Please tell a service type.
+            </prompt>
+            <grammar src="http://85.222.124.174:1314/serviceTypes" type="application/grammar-xml" />
+        </field>
+
+        <subdialog name="servicePriceSubDialog" src="http://85.222.124.174:1314/servicePrice" namelist="serviceType">
+        </subdialog>
+
+        <block>
+            <prompt>
+                The price is <value expr="servicePriceSubDialog.servicePrice"/> euro.
+            </prompt>
+            <return />
+        </block>
+    </form>
+</vxml>

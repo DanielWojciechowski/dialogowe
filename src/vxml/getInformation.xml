@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="ModifyReservationForm">
+
+        <field name="informationType">
+            <prompt>
+                What do you like to know?
+            </prompt>
+            <grammar xml:lang="en-us" root="InformationTypeGrammar">
+                <rule id="InformationTypeGrammar" scope="public">
+                    <one-of>
+                        <item>price of room</item>
+                        <item>price of service</item>
+                        <item>room availability</item>
+                    </one-of>
+                </rule>
+            </grammar>
+        </field>
+
+        <subdialog name="roomPrice" cond="informationType=='price of room'" src="roomPriceSubDialog.xml">
+        </subdialog>
+        <subdialog name="servicePrice" cond="informationType=='price of service'" src="servicePriceSubDialog.xml">
+        </subdialog>
+        <subdialog name="roomAvailability" cond="informationType=='room availability'" src="roomAvailability.xml">
+        </subdialog>
+
+        <block>
+            <goto next="mainMenu.xml#MainMenuForm"/>
+        </block>
+    </form>
+</vxml>
