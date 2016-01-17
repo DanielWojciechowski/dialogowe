@@ -16,26 +16,19 @@
 
 package sample.jsp;
 
-import static sample.ModelConsts.*;
-import static sample.ParamConsts.*;
-
-import java.util.Date;
-import java.util.Map;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import sample.dataAccess.pojo.*;
+import sample.dataAccess.service.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.Map;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import sample.dataAccess.pojo.Client;
-import sample.dataAccess.pojo.Reservation;
-import sample.dataAccess.pojo.Room;
-import sample.dataAccess.pojo.RoomsInReservation;
-import sample.dataAccess.service.ClientService;
-import sample.dataAccess.service.ReservationService;
-import sample.dataAccess.service.RoomService;
-import sample.dataAccess.service.RoomsInReservationService;
+import static sample.ModelConsts.MODEL_RESERVATION_ID;
+import static sample.ModelConsts.MODEL_ROOM_ID;
+import static sample.ParamConsts.*;
 
 @Controller
 public class ReservationController extends AbstractController {
@@ -43,23 +36,28 @@ public class ReservationController extends AbstractController {
     private final ClientService clientService;
     private final RoomService roomService;
     private final RoomsInReservationService roomsInReservationService;
+    private final DictReservationStatusService dictReservationStatusService;
 
     public static final String EMPTY_ELEMENT = "-";
 
     @Inject
     public ReservationController(ClientService clientService, ReservationService reservationService,
-                                 RoomService roomService, RoomsInReservationService roomsInReservationService) {
+                                 RoomService roomService, RoomsInReservationService roomsInReservationService,
+                                 DictReservationStatusService dictReservationStatusService) {
         this.clientService = clientService;
         this.reservationService = reservationService;
         this.roomService = roomService;
         this.roomsInReservationService = roomsInReservationService;
+        this.dictReservationStatusService = dictReservationStatusService;
     }
 
     @RequestMapping("/reservationExists")
     public String reservationExists(Map<String, Object> model, HttpServletRequest request) {
-        final Long reservationId = Long.valueOf(request.getParameter("reservationId"));
+        final Long reservationId = Long.valueOf(request.getParameter(PARAM_RESERVATION_ID));
+        System.out.println("Find reservation with id=" + reservationId);
         Reservation reservation = reservationService.findById(reservationId);
-        model.put("reservationExists", reservation.getId() != null);
+        model.put("foundReservationId", reservation != null ? reservation.getId() : EMPTY_ELEMENT);
+        System.out.println("Found reservation:" + model.get("foundReservationId"));
 
         return "reservationExists";
     }
@@ -71,10 +69,8 @@ public class ReservationController extends AbstractController {
         final Date startDate = getStartDate(request.getParameter(PARAM_BEGINNING_DATE));
         final Date endDate = getEndDate(startDate, Integer.valueOf(request.getParameter(PARAM_LENGTH)));
 
-        Room r = roomService.findAvailableByRoomType(roomType, startDate, endDate);
-        Long rId = r.getId();
-        model.put(MODEL_ROOM_ID, rId == null ? EMPTY_ELEMENT : rId);
-        System.out.println("RoomId: " + rId);
+        Room room = roomService.findAvailableByRoomType(roomType, startDate, endDate);
+        model.put(MODEL_ROOM_ID, room == null ? EMPTY_ELEMENT : room.getId());
 
         return "checkReservation";
     }
@@ -94,6 +90,29 @@ public class ReservationController extends AbstractController {
             roomsInReservationService.save(roomsInReservation);
         }
         return "saveReservation";
+    }
+
+    @RequestMapping("/confirmReservation")
+    public String confirmReservation(HttpServletRequest request) {
+        setNewStatus(request, DictReservationStatus.CONFIRMED);
+        return "confirmReservation";
+    }
+
+    @RequestMapping("/cancelReservation")
+    public String cancelReservation(HttpServletRequest request) {
+        setNewStatus(request, DictReservationStatus.CANCELED);
+        return "cancelReservation";
+    }
+
+    private void setNewStatus(HttpServletRequest request, String statusCode) {
+        final Long reservationId = Long.valueOf(request.getParameter(PARAM_RESERVATION_ID));
+        System.out.println("Change status=" + statusCode + " for reservationId=" + reservationId);
+        Reservation reservation = reservationService.findById(reservationId);
+
+        DictReservationStatus status = dictReservationStatusService.getByCode(statusCode);
+        System.out.println("Found Status :" + (status == null ? "null" : status.getStatus()));
+        reservation.setReservationStatus(status);
+        reservationService.save(reservation);
     }
 
     private Reservation createReservation(HttpServletRequest request) {

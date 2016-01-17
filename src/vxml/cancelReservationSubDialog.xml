@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="CancelReservationForm">
+        <var name="reservationId" />
+
+        <field name="cancelReservation" type="boolean">
+            <prompt>
+                Do you really want to cancel your reservation?
+            </prompt>
+        </field>
+        <subdialog name="cancelReservationSubDialog" cond="cancelReservation" src="http://85.222.124.174:1314/cancelReservation" namelist="reservationId">
+        </subdialog>
+        <block>
+            <return />
+        </block>
+    </form>
+</vxml>

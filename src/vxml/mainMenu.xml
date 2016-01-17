@@ -20,10 +20,7 @@
                 <if cond="menuSelect=='make reservation'">
                     <goto next="makeReservation.xml"/>
                 <elseif cond="menuSelect=='modify reservation'"/>
-                    <!--<goto next="modifyReservation.xml"/>-->
-                    <prompt>
-                        You have selected Modification Service.
-                    </prompt>
+                    <goto next="modifyReservation.xml"/>
                 <elseif cond="menuSelect=='get information'"/>
                     <!--<goto next="getInformation.xml"/>-->
                     <prompt>

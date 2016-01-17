@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="ModifyReservationForm">
+        <field name="reservationId" type="number">
+            <prompt>
+                Please tell your reservation number.
+            </prompt>
+        </field>
+        <subdialog name="checkReservationIdSubDialog" src="http://85.222.124.174:1314/reservationExists" namelist="reservationId">
+        </subdialog>
+
+        <field name="invalidReservationIdRepeat" type="boolean" cond="checkReservationIdSubDialog.foundReservationId == '-'">
+            <prompt>
+                Sorry, the reservation number is not valid. Would you like to tell the number again?
+            </prompt>
+            <filled>
+                <if cond="invalidReservationIdRepeat">
+                    <clear namelist="reservationId checkReservationIdSubDialog invalidReservationIdRepeat" />
+                <else />
+                    <goto next="mainMenu.xml#MainMenuForm"/>
+                </if>
+            </filled>
+        </field>
+
+        <field name="modificationType">
+            <prompt>
+                What would you like to do with your reservation?
+            </prompt>
+            <grammar xml:lang="en-us" root="ModificationTypeGrammar">
+                <rule id="ModificationTypeGrammar" scope="public">
+                    <one-of>
+                        <item>cancel</item>
+                        <item>change date</item>
+                        <item>confirm</item>
+                    </one-of>
+                </rule>
+            </grammar>
+        </field>
+
+        <subdialog name="cancelReservation" cond="modificationType=='cancel'" src="cancelReservationSubDialog.xml">
+            <param name="reservationId" expr="reservationId"/>
+        </subdialog>
+        <subdialog name="changeReservationDate" cond="modificationType=='change date'" src="changeReservationDateSubDialog.xml" namelist="reservationId">
+        </subdialog>
+        <subdialog name="confirmReservationSubDialog" cond="modificationType=='confirm'" src="http://85.222.124.174:1314/confirmReservation" namelist="reservationId">
+        </subdialog>
+
+        <block>
+            <goto next="mainMenu.xml#MainMenuForm"/>
+        </block>
+    </form>
+</vxml>

@@ -1,14 +1,12 @@
 package sample.dataAccess.service.impl;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
-
 import sample.dataAccess.pojo.DictRoomType;
 import sample.dataAccess.repository.DictRoomTypeRepository;
 import sample.dataAccess.service.DictRoomTypeService;
+
+import javax.inject.Inject;
+import java.util.List;
 
 @Service
 public class DictRoomTypeServiceImpl implements DictRoomTypeService {
@@ -17,19 +15,19 @@ public class DictRoomTypeServiceImpl implements DictRoomTypeService {
 
     @Inject
     public DictRoomTypeServiceImpl(DictRoomTypeRepository repository) {
-	this.repository = repository;
+	    this.repository = repository;
     }
 
     @Override
     public List<DictRoomType> listAll() {
-	return repository.findAll();
+	    return repository.findAll();
     }
 
     @Override
     public DictRoomType getByRoomType(String roomType) {
-	List<DictRoomType> roomTypes = repository.findByRoomTypeIgnoreCase(roomType);
+        List<DictRoomType> roomTypes = repository.findByRoomTypeIgnoreCase(roomType);
 
-	return roomTypes.isEmpty() ? new DictRoomType() : roomTypes.get(0);
+        return roomTypes.isEmpty() ? null : roomTypes.get(0);
     }
 
 }
