@@ -23,17 +23,26 @@ public class RoomServiceImpl implements RoomService {
     @Transactional
     @Override
     public Room findAvailableByRoomType(String roomType, Date startDate, Date endDate) {
-	System.out.println("Parametry\n typ:" + roomType + " start:" + startDate + " end:" + endDate);
-	List<Room> rooms = repository.findAvailableByRoomType(roomType, startDate, endDate);
+        System.out.println("Parametry\n typ:" + roomType + " start:" + startDate + " end:" + endDate);
+        List<Room> rooms = repository.findAvailableByRoomType(roomType, startDate, endDate);
 
-	return rooms.isEmpty() ? null : rooms.get(0);
+        return rooms.isEmpty() ? null : rooms.get(0);
+    }
+
+    @Transactional
+    @Override
+    public Room findAvailableByRoomTypeWithExclude(String roomType, Date startDate, Date endDate, Long reservationId) {
+        System.out.println("Parametry\n typ:" + roomType + " start:" + startDate + " end:" + endDate + " reservationId:" + reservationId);
+        List<Room> rooms = repository.findAvailableByRoomTypeWithExclude(roomType, startDate, endDate, reservationId);
+
+        return rooms.isEmpty() ? null : rooms.get(0);
     }
 
     @Override
     public Room findById(Long id) {
-	List<Room> rooms = repository.findById(id);
+        List<Room> rooms = repository.findById(id);
 
-	return rooms.isEmpty() ? null : rooms.get(0);
+        return rooms.isEmpty() ? null : rooms.get(0);
     }
 
 }

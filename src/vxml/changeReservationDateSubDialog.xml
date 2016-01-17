@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="ChangeReservationDateForm">
+        <var name="reservationId" />
+
+        <field name="beginningDate" type="date">
+            <prompt>
+                Please tell the exact beginning date of the stay.
+            </prompt>
+        </field>
+        <field name="lengthInDays" type="number">
+            <prompt>
+                Please tell the length of the stay in days.
+            </prompt>
+        </field>
+
+        <subdialog name="changeReservationDate" src="http://85.222.124.174:1314/changeReservationDate" namelist="reservationId beginningDate lengthInDays">
+        </subdialog>
+
+        <block cond="changeReservationDate.changedReservationId != '-'">
+            <prompt>
+                Date of your reservation has been changed.
+            </prompt>
+        </block>
+
+        <field name="changeReservationDateNotPossible" type="boolean" cond="changeReservationDate.changedReservationId == '-'">
+            <prompt>
+                Sorry, we have got no room available in this date. Would you like to cancel your reservation?
+            </prompt>
+        </field>
+
+        <subdialog name="cancelReservation" cond="changeReservationDateNotPossible" src="cancelReservationSubDialog.xml">
+            <param name="reservationId" expr="reservationId"/>
+        </subdialog>
+
+        <block>
+            <return />
+        </block>
+    </form>
+</vxml>

@@ -24,6 +24,7 @@ import sample.dataAccess.service.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import static sample.ModelConsts.MODEL_RESERVATION_ID;
@@ -102,6 +103,36 @@ public class ReservationController extends AbstractController {
     public String cancelReservation(HttpServletRequest request) {
         setNewStatus(request, DictReservationStatus.CANCELED);
         return "cancelReservation";
+    }
+
+    @RequestMapping("/changeReservationDate")
+    public String changeReservationDate(Map<String, Object> model, HttpServletRequest request) {
+        printRequest("saveReservation", request);
+
+        final Long reservationId = Long.valueOf(request.getParameter(PARAM_RESERVATION_ID));
+        final Date startDate = getStartDate(request.getParameter(PARAM_BEGINNING_DATE));
+        final Date endDate = getEndDate(startDate, Integer.valueOf(request.getParameter(PARAM_LENGTH)));
+
+        Reservation reservation = reservationService.findById(reservationId);
+
+        List<RoomsInReservation> list = roomsInReservationService.findByReservation(reservation);
+        RoomsInReservation roomsInReservation = list.get(0);
+        Room room = roomService.findAvailableByRoomTypeWithExclude(roomsInReservation.getRoom().getRoomType().getRoomType(), startDate, endDate, reservationId);
+
+        if (room != null) {
+            reservation.setStartDate(startDate);
+            reservation.setEndDate(endDate);
+            reservationService.save(reservation);
+            roomsInReservation.setRoom(room);
+            roomsInReservationService.save(roomsInReservation);
+
+            model.put(MODEL_RESERVATION_ID, reservationId);
+        } else {
+            System.out.println("Available room not found");
+            model.put(MODEL_RESERVATION_ID, EMPTY_ELEMENT);
+        }
+
+        return "changeReservationDate";
     }
 
     private void setNewStatus(HttpServletRequest request, String statusCode) {

@@ -1,13 +1,14 @@
 package sample.dataAccess.service.impl;
 
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
-
+import sample.dataAccess.pojo.Reservation;
 import sample.dataAccess.pojo.RoomsInReservation;
 import sample.dataAccess.repository.RoomsInReservationRepository;
 import sample.dataAccess.service.RoomsInReservationService;
+
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class RoomsInReservationServiceImpl implements RoomsInReservationService {
@@ -23,6 +24,11 @@ public class RoomsInReservationServiceImpl implements RoomsInReservationService 
     @Override
     public RoomsInReservation save(RoomsInReservation reservation) {
 	return repository.save(reservation);
+    }
+
+    @Override
+    public List<RoomsInReservation> findByReservation(Reservation reservation) {
+        return repository.findByReservation(reservation);
     }
 
 }

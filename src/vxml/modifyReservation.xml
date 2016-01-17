@@ -42,6 +42,7 @@
             <param name="reservationId" expr="reservationId"/>
         </subdialog>
         <subdialog name="changeReservationDate" cond="modificationType=='change date'" src="changeReservationDateSubDialog.xml" namelist="reservationId">
+            <param name="reservationId" expr="reservationId"/>
         </subdialog>
         <subdialog name="confirmReservationSubDialog" cond="modificationType=='confirm'" src="http://85.222.124.174:1314/confirmReservation" namelist="reservationId">
         </subdialog>
