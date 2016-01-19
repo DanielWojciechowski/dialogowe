@@ -19,7 +19,7 @@ public class Service {
 	private String description;
 
 	@NotNull
-	private boolean isAvailable = false;
+	private boolean isAvailable = true;
 
 	private double price;
 }
