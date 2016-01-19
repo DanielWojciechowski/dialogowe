@@ -167,6 +167,12 @@ public class ReservationController extends AbstractController {
         return "roomPrice";
     }
 
+    @RequestMapping("/getRoomTypes")
+    public String dictData(Map<String, Object> model) {
+        model.put("dictData", dictRoomTypeService.listAll().stream().map(DictRoomType::getRoomType).collect(Collectors.<String> toList()));
+        return "dictData";
+    }
+
     private void setNewStatus(HttpServletRequest request, String statusCode) {
         final Long reservationId = Long.valueOf(request.getParameter(PARAM_RESERVATION_ID));
         System.out.println("Change status=" + statusCode + " for reservationId=" + reservationId);

@@ -1,11 +1,10 @@
 package sample.jsp;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
 
 public abstract class AbstractController {
     private static final String DATE_FORMAT = "yyyymmdd";
@@ -35,9 +34,9 @@ public abstract class AbstractController {
     protected void printRequest(String name, HttpServletRequest request) {
         System.out.println(name);
         for (java.util.Map.Entry<String, String[]> s : request.getParameterMap().entrySet()) {
-            System.out.println(s.getKey());
+            System.out.print(s.getKey() + ": ");
             for (String v : s.getValue())
-                System.out.println(v);
+                System.out.println(v + ", ");
         }
     }
 

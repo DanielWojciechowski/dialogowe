@@ -28,6 +28,9 @@
             </help>
         </initial>
 
+        <subdialog name="roomTypes" src="http://85.222.124.174:1314/getRoomTypes">
+        </subdialog>
+
         <field name="room_type">
             <prompt>
                 Please provide type of room.
@@ -41,10 +44,10 @@
                 <reprompt />
             </nomatch>
             <nomatch count="2">
-                I do not understand, please try again. You have to say room type, like apartment or one bed.
+                I do not understand, please try again. You have to say room type, like <value expr="roomTypes.dictData"/>
             </nomatch>
             <help count="1">
-                You have to say room type, like apartment or one bed.
+                You have to say room type, like <value expr="roomTypes.dictData"/>.
             </help>
             <grammar src="http://85.222.124.174:1314/dictRoomType" type="application/grammar-xml"/>
         </field>

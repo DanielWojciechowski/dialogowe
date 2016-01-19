@@ -18,11 +18,13 @@ package sample.jsp;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sample.dataAccess.pojo.Service;
 import sample.dataAccess.service.ServiceService;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static sample.ParamConsts.PARAM_SERVICE_NAME;
 
@@ -48,5 +50,11 @@ public class ServiceController extends AbstractController {
         String requestedService = request.getParameter(PARAM_SERVICE_NAME);
         model.put("price", (int) serviceService.getByName(requestedService).getPrice());
         return "servicePrice";
+    }
+
+    @RequestMapping("/getServices")
+    public String dictData(Map<String, Object> model) {
+        model.put("dictData", serviceService.getAll().stream().map(Service::getName).collect(Collectors.<String> toList()));
+        return "dictData";
     }
 }
