@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="ReservationForm">
+        <field name="beginningDate" type="date">
+            <prompt>
+                Please tell the exact beginning date of the stay.
+            </prompt>
+        </field>
+        <field name="lengthInDays" type="number">
+            <prompt>
+                Please tell the length of the stay in days.
+            </prompt>
+        </field>
+        <field name="roomType">
+            <prompt>
+                Please tell a room type.
+            </prompt>
+            <grammar src="http://85.222.124.174:1314/dictRoomType" type="application/grammar-xml" />
+        </field>
+        <subdialog name="checkReservationSubDialog" src="http://85.222.124.174:1314/checkReservation" namelist="beginningDate lengthInDays roomType">
+        </subdialog>
+        <block name="checkReservationResultBlock">
+            <if cond="checkReservationSubDialog.roomId == '-'">
+                <prompt>
+                    Sorry, we have got no room available in this date.
+                </prompt>
+            <else />
+                <prompt>
+                    We have available rooms in this date.
+                </prompt>
+            </if>
+        </block>
+
+        <block>
+            <goto next="mainMenu.xml#MainMenuForm"/>
+        </block>
+    </form>
+</vxml>
