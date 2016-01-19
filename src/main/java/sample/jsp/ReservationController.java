@@ -42,6 +42,8 @@ public class ReservationController extends AbstractController {
 
     @RequestMapping("/reservationExists")
     public String reservationExists(Map<String, Object> model, HttpServletRequest request) {
+        printRequest("reservationExists", request);
+
         final Long reservationId = Long.valueOf(request.getParameter(PARAM_RESERVATION_ID));
         System.out.println("Find reservation with id=" + reservationId);
         Reservation reservation = reservationService.findById(reservationId);
@@ -53,7 +55,8 @@ public class ReservationController extends AbstractController {
 
     @RequestMapping("/checkReservation")
     public String checkReservation(Map<String, Object> model, HttpServletRequest request) {
-        System.out.println("checkReservation " + request.getParameterMap());
+        printRequest("checkReservation", request);
+
         final String roomType = request.getParameter(PARAM_ROOM_TYPE);
         final Date startDate = getStartDate(request.getParameter(PARAM_BEGINNING_DATE));
         final Date endDate = getEndDate(startDate, Integer.valueOf(request.getParameter(PARAM_LENGTH)));
@@ -83,12 +86,14 @@ public class ReservationController extends AbstractController {
 
     @RequestMapping("/confirmReservation")
     public String confirmReservation(HttpServletRequest request) {
+        printRequest("confirmReservation", request);
         setNewStatus(request, DictReservationStatus.CONFIRMED);
         return "confirmReservation";
     }
 
     @RequestMapping("/cancelReservation")
     public String cancelReservation(HttpServletRequest request) {
+        printRequest("cancelReservation", request);
         setNewStatus(request, DictReservationStatus.CANCELED);
         return "cancelReservation";
     }
@@ -136,18 +141,19 @@ public class ReservationController extends AbstractController {
     }
 
     @RequestMapping("/roomPriceStayLengthGrammar")
-    public String roomPriceStayLengthGrammar(Map<String, Object> model) {
+    public String roomPriceStayLengthGrammar() {
         return "roomPriceStayLengthGrammar";
     }
 
     @RequestMapping("/roomPriceIsSeasonGrammar")
-    public String roomPriceIsSeasonGrammar(Map<String, Object> model) {
+    public String roomPriceIsSeasonGrammar() {
         return "roomPriceIsSeasonGrammar";
     }
 
     @RequestMapping("/roomPrice")
     public String roomPrice(HttpServletRequest request, Map<String, Object> model) {
-        System.out.println("roomPriceParameters " + request.getParameterMap());
+        printRequest("roomPrice", request);
+
         String roomTypeString = request.getParameter("roomPrice.room_type");
         String lengthString = request.getParameter("roomPrice.stay_length");
         String seasonString = request.getParameter("roomPrice.season");

@@ -43,8 +43,9 @@ public class ServiceController extends AbstractController {
 
     @RequestMapping("/servicePrice")
     public String servicePrice(Map<String, Object> model, HttpServletRequest request) {
+        printRequest("servicePrice", request);
+
         String requestedService = request.getParameter(PARAM_SERVICE_NAME);
-        System.out.println("Requested Service=" + requestedService);
         model.put("price", (int) serviceService.getByName(requestedService).getPrice());
         return "servicePrice";
     }
