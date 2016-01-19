@@ -3,18 +3,35 @@
 <vxml version="2.1">
     <form id="WelcomeForm">
         <block>
-            <prompt>
-                Welcome to the telephone hotel system.
-            </prompt>
+            Welcome to the telephone hotel system.
             <goto next="#MainMenuForm"/>
         </block>
     </form>
 
     <form id="MainMenuForm">
+        <property name="universals" value="help"/>
+
         <field name="menuSelect">
             <prompt>
                 What would you like to do?
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                    I do not understand. You can choose one of following: make reservation, modify reservation, get information or finish.
+            </nomatch>
+            <nomatch count="3">
+                    I do not understand. You have to say exactly one of following: make reservation, modify reservation, get information or finish.
+            </nomatch>
+            <help count="1">
+                You have to say exactly one of following: make reservation, modify reservation, get information or finish.
+            </help>
             <grammar src="mainMenuGrammar.xml" type="application/grammar-xml" />
             <filled>
                 <if cond="menuSelect=='make reservation'">

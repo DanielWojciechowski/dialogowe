@@ -160,7 +160,7 @@ public class ReservationController extends AbstractController {
 
         DictRoomType dictRoomType = dictRoomTypeService.getByRoomType(roomTypeString);
         int length = Integer.parseInt(lengthString);
-        boolean season = "yes".equals(seasonString);
+        boolean season = "yes".equalsIgnoreCase(seasonString);
 
         model.put("roomPrice", dictRoomType.getPrice() * length * (season ? 1.3d : 1.0d));
 

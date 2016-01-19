@@ -2,11 +2,28 @@
 
 <vxml version="2.1">
     <form id="ModifyReservationForm">
-
+        <property name="universals" value="help"/>
         <field name="informationType">
             <prompt>
                 What do you like to know?
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You can choose one of following: price of room, price of service, room availability.
+            </nomatch>
+            <nomatch count="3">
+                I do not understand. You have to say exactly one of following: price of room, price of service, room availability.
+            </nomatch>
+            <help count="1">
+                You have to say exactly one of following: price of room, price of service, room availability.
+            </help>
             <grammar xml:lang="en-us" root="InformationTypeGrammar">
                 <rule id="InformationTypeGrammar" scope="public">
                     <one-of>

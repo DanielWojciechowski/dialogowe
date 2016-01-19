@@ -2,15 +2,45 @@
 
 <vxml version="2.1">
     <form id="ReservationForm">
+        <property name="universals" value="help"/>
+
         <field name="beginningDate" type="date">
             <prompt>
                 Please tell the exact beginning date of the stay.
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You have to provide a valid date in format: year, month, day. Or you can use other expression like today or tomorrow.
+            </nomatch>
+            <help count="1">
+                You have to provide a valid date in format: year, month, day. Or you can use other expression like today or tomorrow.
+            </help>
         </field>
         <field name="lengthInDays" type="number">
             <prompt>
                 Please tell the length of the stay in days.
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You have to provide a valid number of days, like 5 or 8.
+            </nomatch>
+            <help count="1">
+                You have to provide a valid number of days, like 5 or 8.
+            </help>
         </field>
         <field name="roomType">
             <prompt>

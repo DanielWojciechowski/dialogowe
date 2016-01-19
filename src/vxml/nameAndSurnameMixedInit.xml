@@ -3,6 +3,7 @@
 <vxml version="2.1">
 
 <form id="NameAndSurnameMixedInit">
+    <property name="universals" value="help"/>
 
     <grammar src="http://85.222.124.174:1314/mixedNames" type="application/grammar-xml"/>
 
@@ -10,8 +11,20 @@
         <prompt>
             Provide your name and surname.
         </prompt>
-
+        <noinput>
+            I can't hear you.
+        </noinput>
+        <help count="1">
+            You have to say your name and surname, like John Smith
+        </help>
         <nomatch count="1">
+            I do not understand, please try again.
+            <reprompt />
+        </nomatch>
+        <nomatch count="2">
+            I do not understand, please try again. You have to provide your name and surname.
+        </nomatch>
+        <nomatch count="3">
             Okay, I'll ask you for information one piece at a time.
             <assign name="myInit" expr="true"/>
             <reprompt/>
@@ -20,11 +33,38 @@
 
     <field name="firstName">
         <prompt>Provide your name?</prompt>
+        <noinput>
+            I can't hear you.
+        </noinput>
+        <help count="1">
+            You have to say your first name, like John.
+        </help>
+        <nomatch count="1">
+            I do not understand, please try again.
+            <reprompt />
+        </nomatch>
+        <nomatch count="2">
+            I do not understand, please try again. You have to say your first name, like John.
+        </nomatch>
         <grammar src="http://85.222.124.174:1314/firstNames" type="application/grammar-xml"/>
     </field>
 
     <field name="lastName">
         <prompt>Provide your surname</prompt>
+        <noinput>
+            I can't hear you.
+            <reprompt />
+        </noinput>
+        <nomatch count="1">
+            I do not understand, please try again.
+            <reprompt />
+        </nomatch>
+        <nomatch count="2">
+            I do not understand, please try again. You have to say your last name, like Smith.
+        </nomatch>
+        <help count="1">
+            You have to say your last name, like Smith.
+        </help>
         <grammar src="http://85.222.124.174:1314/lastNames" type="application/grammar-xml"/>
     </field>
 

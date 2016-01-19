@@ -2,15 +2,45 @@
 
 <vxml version="2.1">
     <form id="ReservationForm">
+        <property name="universals" value="help"/>
+
         <field name="beginningDate" type="date">
             <prompt>
                 Please tell the exact beginning date of the stay.
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You have to provide a valid date in format: year, month, day. Or you can use other expression like today or tomorrow.
+            </nomatch>
+            <help count="1">
+                You have to provide a valid date in format: year, month, day. Or you can use other expression like today or tomorrow.
+            </help>
         </field>
         <field name="lengthInDays" type="number">
             <prompt>
                 Please tell the length of the stay in days.
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You have to provide a valid number of days, like 5 or 8.
+            </nomatch>
+            <help count="1">
+                You have to provide a valid number of days, like 5 or 8.
+            </help>
         </field>
         <field name="roomType">
             <prompt>
@@ -34,6 +64,23 @@
             <prompt>
                 Please tell your phone number.
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You have to provide a valid 10 digit phone number.
+            </nomatch>
+            <nomatch count="3">
+                I do not understand. You have to provide a valid 10 digit phone number, like 1 2 3 4 5 6 7 8 9 0.
+            </nomatch>
+            <help count="1">
+                You have to provide a valid 10 digit phone number.
+            </help>
         </field>
         <subdialog name="saveReservationSubDialog" src="http://85.222.124.174:1314/saveReservation" namelist="beginningDate lengthInDays checkReservationSubDialog.roomId nameAndSurnameSubDialog.firstName nameAndSurnameSubDialog.lastName phoneNumber">
         </subdialog>
@@ -52,6 +99,23 @@
             <prompt>
                 Would you like to make another reservation
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You have to say yes or no.
+            </nomatch>
+            <nomatch count="3">
+                I do not understand. You have to say yes if you want to make another reservation, in other case say no.
+            </nomatch>
+            <help count="1">
+                You have to say yes if you want to make another reservation, in other case say no.
+            </help>
             <filled>
                 <if cond="newReservation">
                     <clear namelist="beginningDate lengthInDays roomType checkReservationSubDialog checkReservationResultBlock saveReservationResultBlock saveReservationSubDialog nameAndSurnameSubDialog phoneNumber newReservation" />

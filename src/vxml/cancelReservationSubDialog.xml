@@ -2,12 +2,31 @@
 
 <vxml version="2.1">
     <form id="CancelReservationForm">
+        <property name="universals" value="help"/>
+
         <var name="reservationId" />
 
         <field name="cancelReservation" type="boolean">
             <prompt>
                 Do you really want to cancel your reservation?
             </prompt>
+            <noinput>
+                I can't hear you.
+                <reprompt />
+            </noinput>
+            <nomatch count="1">
+                I do not understand, please try again.
+                <reprompt />
+            </nomatch>
+            <nomatch count="2">
+                I do not understand. You have to say yes or no.
+            </nomatch>
+            <nomatch count="3">
+                I do not understand. You have to say yes if you want cancel your reservation, in other case say no.
+            </nomatch>
+            <help count="1">
+                You have to say yes if you want cancel your reservation, in other case say no.
+            </help>
         </field>
         <subdialog name="cancelReservationSubDialog" cond="cancelReservation" src="http://85.222.124.174:1314/cancelReservation" namelist="reservationId">
         </subdialog>
