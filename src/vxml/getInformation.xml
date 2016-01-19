@@ -25,6 +25,14 @@
         <subdialog name="roomAvailability" cond="informationType=='room availability'" src="roomAvailability.xml">
         </subdialog>
 
+        <subdialog name="roomPriceCheckerSubDialog" cond="informationType=='price of room'" src="http://85.222.124.174:1314/roomPrice" namelist="roomPrice.room_type roomPrice.stay_length roomPrice.season">
+        </subdialog>
+        <block cond="informationType=='price of room'">
+            <prompt>
+                The price is <value expr="roomPriceCheckerSubDialog.roomPrice"/> euro.
+            </prompt>
+        </block>
+
         <block>
             <goto next="mainMenu.xml#MainMenuForm"/>
         </block>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static sample.ModelConsts.MODEL_RESERVATION_ID;
 import static sample.ModelConsts.MODEL_ROOM_ID;
@@ -22,18 +23,21 @@ public class ReservationController extends AbstractController {
     private final RoomService roomService;
     private final RoomsInReservationService roomsInReservationService;
     private final DictReservationStatusService dictReservationStatusService;
+    private final DictRoomTypeService dictRoomTypeService;
+
 
     public static final String EMPTY_ELEMENT = "-";
 
     @Inject
     public ReservationController(ClientService clientService, ReservationService reservationService,
                                  RoomService roomService, RoomsInReservationService roomsInReservationService,
-                                 DictReservationStatusService dictReservationStatusService) {
+                                 DictReservationStatusService dictReservationStatusService, DictRoomTypeService dictRoomTypeService) {
         this.clientService = clientService;
         this.reservationService = reservationService;
         this.roomService = roomService;
         this.roomsInReservationService = roomsInReservationService;
         this.dictReservationStatusService = dictReservationStatusService;
+        this.dictRoomTypeService = dictRoomTypeService;
     }
 
     @RequestMapping("/reservationExists")
@@ -117,6 +121,44 @@ public class ReservationController extends AbstractController {
         }
 
         return "changeReservationDate";
+    }
+
+    @RequestMapping("/roomPriceFullGrammar")
+    public String roomPriceFullGrammar(Map<String, Object> model) {
+        model.put("roomTypes", dictRoomTypeService.listAll().stream().map(DictRoomType::getRoomType).collect(Collectors.<String> toList()));
+        return "roomPriceFullGrammar";
+    }
+
+    @RequestMapping("/dictRoomType")
+    public String roomTypeGrammar(Map<String, Object> model) {
+        model.put("roomTypes", dictRoomTypeService.listAll().stream().map(DictRoomType::getRoomType).collect(Collectors.<String> toList()));
+        return "grammarDictRoomType";
+    }
+
+    @RequestMapping("/roomPriceStayLengthGrammar")
+    public String roomPriceStayLengthGrammar(Map<String, Object> model) {
+        return "roomPriceStayLengthGrammar";
+    }
+
+    @RequestMapping("/roomPriceIsSeasonGrammar")
+    public String roomPriceIsSeasonGrammar(Map<String, Object> model) {
+        return "roomPriceIsSeasonGrammar";
+    }
+
+    @RequestMapping("/roomPrice")
+    public String roomPrice(HttpServletRequest request, Map<String, Object> model) {
+        System.out.println("roomPriceParameters " + request.getParameterMap());
+        String roomTypeString = request.getParameter("roomPrice.room_type");
+        String lengthString = request.getParameter("roomPrice.stay_length");
+        String seasonString = request.getParameter("roomPrice.season");
+
+        DictRoomType dictRoomType = dictRoomTypeService.getByRoomType(roomTypeString);
+        int length = Integer.parseInt(lengthString);
+        boolean season = "yes".equals(seasonString);
+
+        model.put("roomPrice", dictRoomType.getPrice() * length * (season ? 1.3d : 1.0d));
+
+        return "roomPrice";
     }
 
     private void setNewStatus(HttpServletRequest request, String statusCode) {

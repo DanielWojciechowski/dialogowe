@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<vxml version="2.1">
+    <form id="RoomPriceForm">
+
+        <grammar src="http://85.222.124.174:1314/roomPriceFullGrammar" type="application/grammar-xml"/>
+        <initial name="myInit">
+            <prompt>
+                Please provide type of room, length of stay and whether the stay is between 1 june and 31 august.
+            </prompt>
+            <nomatch count="1">
+                Okay, I'll ask you for information one piece at a time.
+                <assign name="myInit" expr="true"/>
+                <reprompt/>
+            </nomatch>
+        </initial>
+
+        <field name="room_type">
+            <prompt>
+                Please provide type of room.
+            </prompt>
+            <grammar src="http://85.222.124.174:1314/dictRoomType" type="application/grammar-xml"/>
+        </field>
+
+        <field name="stay_length">
+            <prompt>
+                Please provide length of stay.
+            </prompt>
+            <grammar src="http://85.222.124.174:1314/roomPriceStayLengthGrammar" type="application/grammar-xml"/>
+        </field>
+
+        <field name="season">
+            <prompt>
+                Please provide whether stay is between 1 june and 31 august.
+            </prompt>
+            <grammar src="http://85.222.124.174:1314/roomPriceIsSeasonGrammar" type="application/grammar-xml"/>
+        </field>
+
+        <filled mode="all">>
+            <return namelist="room_type stay_length season"/>
+        </filled>
+    </form>
+</vxml>

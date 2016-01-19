@@ -16,14 +16,12 @@
 
 package sample.jsp;
 
-import java.util.Map;
-
-import javax.inject.Inject;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import sample.dataAccess.service.ClientService;
+
+import javax.inject.Inject;
+import java.util.Map;
 
 @Controller
 public class ClientController extends AbstractController {
@@ -31,31 +29,31 @@ public class ClientController extends AbstractController {
 
     @Inject
     public ClientController(ClientService clientService) {
-	this.clientService = clientService;
+	    this.clientService = clientService;
     }
 
     @RequestMapping("/firstNames")
     public String firstNames(Map<String, Object> model) {
-	putAllClientsToModel(model);
+        putAllClientsToModel(model);
 
-	return "grammarClientFirstNames";
+        return "grammarClientFirstNames";
     }
 
     @RequestMapping("/lastNames")
-    public String surnames(Map<String, Object> model) {
-	putAllClientsToModel(model);
+        public String surnames(Map<String, Object> model) {
+        putAllClientsToModel(model);
 
-	return "grammarClientLastNames";
+        return "grammarClientLastNames";
     }
 
     @RequestMapping("/mixedNames")
     public String fullname(Map<String, Object> model) {
-	putAllClientsToModel(model);
+        putAllClientsToModel(model);
 
-	return "grammarClientMixedNames";
+        return "grammarClientMixedNames";
     }
 
     private void putAllClientsToModel(Map<String, Object> model) {
-	model.put("clients", clientService.listAll());
+	    model.put("clients", clientService.listAll());
     }
 }
