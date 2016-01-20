@@ -3,10 +3,23 @@
 <grammar xml:lang="en-us" root="MainMenuGrammar">
     <rule id="MainMenuGrammar" scope="public">
         <one-of>
-            <item>make reservation</item>
-            <item>modify reservation</item>
-            <item>get information</item>
-            <item>finish</item>
+            <item>
+                <item repeat="0-1">
+                    <ruleref uri="#FILL_MENU"/>
+                </item>
+                <one-of>
+                    <item>make reservation</item>
+                    <item>modify reservation</item>
+                    <item>get information</item>
+                    <item>finish</item>
+                </one-of>
+            </item>
+        </one-of>
+    </rule>
+
+    <rule id="FILL_MENU" scope="public">
+        <one-of>
+            <item> i would like to </item>
         </one-of>
     </rule>
 </grammar>

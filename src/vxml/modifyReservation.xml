@@ -83,9 +83,29 @@
             <grammar xml:lang="en-us" root="ModificationTypeGrammar">
                 <rule id="ModificationTypeGrammar" scope="public">
                     <one-of>
-                        <item>cancel</item>
-                        <item>change date</item>
-                        <item>confirm</item>
+                        <item>
+                            <item repeat="0-1">
+                                <ruleref uri="#FILL_MODIFICATION_TYPE"/>
+                            </item>
+                            <one-of>
+                                <item>cancel</item>
+                                <item>change date</item>
+                                <item>confirm</item>
+                            </one-of>
+                            <item repeat="0-1">
+                                <ruleref uri="#FILL_MODIFICATION_TYPE_END"/>
+                            </item>
+                        </item>
+                    </one-of>
+                </rule>
+                <rule id="FILL_MODIFICATION_TYPE" scope="public">
+                    <one-of>
+                        <item> i would like to </item>
+                    </one-of>
+                </rule>
+                <rule id="FILL_MODIFICATION_TYPE_END" scope="public">
+                    <one-of>
+                        <item> reservation </item>
                     </one-of>
                 </rule>
             </grammar>

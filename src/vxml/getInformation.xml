@@ -27,9 +27,21 @@
             <grammar xml:lang="en-us" root="InformationTypeGrammar">
                 <rule id="InformationTypeGrammar" scope="public">
                     <one-of>
-                        <item>price of room</item>
-                        <item>price of service</item>
-                        <item>room availability</item>
+                        <item>
+                            <item repeat="0-1">
+                                <ruleref uri="#FILL_INFORMATION_TYPE"/>
+                            </item>
+                            <one-of>
+                                <item>price of room</item>
+                                <item>price of service</item>
+                                <item>room availability</item>
+                            </one-of>
+                        </item>
+                    </one-of>
+                </rule>
+                <rule id="FILL_INFORMATION_TYPE" scope="public">
+                    <one-of>
+                        <item> i would like to know </item>
                     </one-of>
                 </rule>
             </grammar>

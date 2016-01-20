@@ -12,7 +12,7 @@
 	</rule>
 	<rule id="FILL_TYPE" scope="public">
 		<one-of>
-			<item> room type is </item>
+			<item> room type </item>
 		</one-of>
 	</rule>
 </grammar>
