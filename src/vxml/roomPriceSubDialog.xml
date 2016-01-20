@@ -31,7 +31,7 @@
         <subdialog name="roomTypes" src="http://85.222.124.174:1314/getRoomTypes">
         </subdialog>
 
-        <field name="room_type">
+        <field name="roomType">
             <prompt>
                 Please provide type of room.
             </prompt>
@@ -98,7 +98,7 @@
         </field>
 
         <filled mode="all">>
-            <return namelist="room_type stay_length season"/>
+            <return namelist="roomType stay_length season"/>
         </filled>
     </form>
 </vxml>

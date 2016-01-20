@@ -8,10 +8,10 @@
                     <ruleref uri="#FILL_MENU"/>
                 </item>
                 <one-of>
-                    <item>make reservation</item>
-                    <item>modify reservation</item>
-                    <item>get information</item>
-                    <item>finish</item>
+                    <item>make reservation <tag> out.menuSelect = "make reservation"; </tag></item>
+                    <item>modify reservation <tag> out.menuSelect = "modify reservation"; </tag></item>
+                    <item>get information <tag> out.menuSelect = "get information"; </tag></item>
+                    <item>finish <tag> out.menuSelect = "finish"; </tag></item>
                 </one-of>
             </item>
         </one-of>

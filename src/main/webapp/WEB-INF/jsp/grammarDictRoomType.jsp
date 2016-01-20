@@ -6,7 +6,7 @@
 				<item repeat="0-1">
 					<ruleref uri="#FILL_TYPE"/>
 				</item>
-				<one-of><c:forEach items="${roomTypes}" var="roomType"><item>${roomType}</item></c:forEach></one-of>
+				<one-of><c:forEach items="${roomTypes}" var="roomType"><item>${roomType} <tag> out.roomType = "${roomType}"; </tag></item></c:forEach></one-of>
 			</item>
 		</one-of>
 	</rule>

@@ -154,7 +154,7 @@ public class ReservationController extends AbstractController {
     public String roomPrice(HttpServletRequest request, Map<String, Object> model) {
         printRequest("roomPrice", request);
 
-        String roomTypeString = request.getParameter("roomPrice.room_type");
+        String roomTypeString = request.getParameter("roomPrice.roomType");
         String lengthString = request.getParameter("roomPrice.stay_length");
         String seasonString = request.getParameter("roomPrice.season");
 

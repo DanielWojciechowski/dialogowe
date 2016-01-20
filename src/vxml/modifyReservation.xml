@@ -88,9 +88,9 @@
                                 <ruleref uri="#FILL_MODIFICATION_TYPE"/>
                             </item>
                             <one-of>
-                                <item>cancel</item>
-                                <item>change date</item>
-                                <item>confirm</item>
+                                <item>cancel <tag> out.modificationType = "cancel"; </tag></item>
+                                <item>change date <tag> out.modificationType = "change date"; </tag></item>
+                                <item>confirm <tag> out.modificationType = "confirm"; </tag></item>
                             </one-of>
                             <item repeat="0-1">
                                 <ruleref uri="#FILL_MODIFICATION_TYPE_END"/>

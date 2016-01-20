@@ -32,9 +32,9 @@
                                 <ruleref uri="#FILL_INFORMATION_TYPE"/>
                             </item>
                             <one-of>
-                                <item>price of room</item>
-                                <item>price of service</item>
-                                <item>room availability</item>
+                                <item>price of room <tag> out.informationType = "price of room"; </tag></item>
+                                <item>price of service <tag> out.informationType = "price of service"; </tag></item>
+                                <item>room availability <tag> out.informationType = "room availability"; </tag></item>
                             </one-of>
                         </item>
                     </one-of>
@@ -54,7 +54,7 @@
         <subdialog name="roomAvailability" cond="informationType=='room availability'" src="roomAvailability.xml">
         </subdialog>
 
-        <subdialog name="roomPriceCheckerSubDialog" cond="informationType=='price of room'" src="http://85.222.124.174:1314/roomPrice" namelist="roomPrice.room_type roomPrice.stay_length roomPrice.season">
+        <subdialog name="roomPriceCheckerSubDialog" cond="informationType=='price of room'" src="http://85.222.124.174:1314/roomPrice" namelist="roomPrice.roomType roomPrice.stay_length roomPrice.season">
         </subdialog>
         <block cond="informationType=='price of room'">
             <prompt>

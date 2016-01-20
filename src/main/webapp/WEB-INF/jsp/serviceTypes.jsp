@@ -5,7 +5,7 @@
             <item repeat="0-1">
                 <ruleref uri="#FILL_SERVICE_MENU"/>
             </item>
-            <one-of><c:forEach items="${services}" var="service"><item>${fn:toLowerCase(service.name)}</item></c:forEach></one-of>
+            <one-of><c:forEach items="${services}" var="service"><item>${fn:toLowerCase(service.name)} <tag> out.serviceType = "${fn:toLowerCase(service.name)}";	</tag></item></c:forEach></one-of>
         </item>
 
     </rule>

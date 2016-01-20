@@ -3,61 +3,61 @@
   <rule id="CHECKER" scope="public">
     <one-of>
       <item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
         <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
         <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
       </item>
       <item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
-        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
-        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
-      </item>
-      <item>
-        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
-        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
-      </item>
-      <item>
-        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
-        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
-      </item>
-      <item>
-        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
-        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
-      </item>
-      <item>
-        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
-        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
-      </item>
-      <item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
         <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
         <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
       </item>
       <item>
         <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
-        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
-      </item>
-      <item>
-        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
-      </item>
-      <item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
         <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
       </item>
       <item>
         <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
+        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
       </item>
       <item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
+        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
         <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
       </item>
       <item>
-        <item><ruleref uri="#TYPE"/><tag>out.room_type=rules.TYPE.room_type;</tag></item>
+        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
+        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
+      </item>
+      <item>
+        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
+        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
+      </item>
+      <item>
+        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
+        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
+      </item>
+      <item>
+        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
+      </item>
+      <item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
+        <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
+      </item>
+      <item>
+        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
+      </item>
+      <item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
+        <item><ruleref uri="#LENGTH"/><tag>out.stay_length=rules.LENGTH.stay_length</tag></item>
+      </item>
+      <item>
+        <item><ruleref uri="#TYPE"/><tag>out.roomType=rules.TYPE.roomType;</tag></item>
       </item>
       <item>
         <item><ruleref uri="#SEASON"/><tag>out.season=rules.SEASON.season</tag></item>
@@ -74,7 +74,7 @@
         <item repeat="0-1">
           <ruleref uri="#FILL_TYPE"/>
         </item>
-        <one-of><c:forEach items="${roomTypes}" var="roomType"><item>${roomType}<tag> out.room_type = "${roomType}";	</tag></item></c:forEach></one-of>
+        <one-of><c:forEach items="${roomTypes}" var="roomType"><item>${roomType}<tag> out.roomType = "${roomType}";	</tag></item></c:forEach></one-of>
       </item>
     </one-of>
   </rule>
